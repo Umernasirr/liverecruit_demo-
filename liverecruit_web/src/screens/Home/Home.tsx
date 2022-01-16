@@ -9,7 +9,7 @@ const Home = () => {
         <div className="bg-blue-900">
           <LeftContent />
         </div>
-        <div className="col-span-4 bg-red-400">
+        <div className="col-span-4 bg-gray-100">
           <RightContent />
         </div>
       </div>
