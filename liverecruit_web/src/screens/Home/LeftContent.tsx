@@ -1,6 +1,15 @@
 import React, { useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 const LeftContent = () => {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = async () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <div className="my-12 flex flex-col items-center ">
       <h1 className="text-3xl text-white">John Doe</h1>
@@ -12,6 +21,15 @@ const LeftContent = () => {
           alt=""
         />
       </div>
+
+      <br />
+
+      <button
+        onClick={handleLogout}
+        className="bg-gray-100 p-2 px-4 rounded-lg hover:bg-gray-300"
+      >
+        Logout
+      </button>
     </div>
   );
 };

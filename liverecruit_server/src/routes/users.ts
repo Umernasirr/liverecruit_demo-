@@ -3,7 +3,6 @@ const router = require("express").Router({ mergeParams: true });
 import {
   getUser,
   getUsers,
-  updateUser,
   deleteUser,
   createUser,
 } from "../controllers/users";

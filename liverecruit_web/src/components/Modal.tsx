@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { PlusCircleIcon } from "@heroicons/react/solid";
 
-import { addUser } from "../services/UserService";
 interface IProps {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
-  handleAddUser: () => void;
+  handleAddUser: (isChecked: boolean) => void;
 }
 
 const Modal: React.FC<IProps> = ({
@@ -14,6 +13,7 @@ const Modal: React.FC<IProps> = ({
   setEmail,
   handleAddUser,
 }) => {
+  const [isChecked, setIsChecked] = useState(false);
   return (
     <div
       className="fixed z-10 inset-0 overflow-y-auto"
@@ -53,6 +53,22 @@ const Modal: React.FC<IProps> = ({
                   </p>
                 </div>
 
+                <div className="form-check form-switch flex items-center my-2">
+                  <input
+                    onChange={() => setIsChecked(!isChecked)}
+                    type="checkbox"
+                    role="switch"
+                    id="flexSwitchCheckChecked"
+                    checked={isChecked}
+                  />
+                  <label
+                    className="form-check-label inline-block text-gray-600 ml-3 text-sm "
+                    htmlFor="flexSwitchCheckChecked"
+                  >
+                    Give Admin access to this user?
+                  </label>
+                </div>
+
                 <div className="mt-2">
                   <input
                     className="text-sm text-gray-500 h-10 rounded-md outline-blue-300 w-full bg-gray-100 p-2"
@@ -68,7 +84,7 @@ const Modal: React.FC<IProps> = ({
           <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             <button
               type="button"
-              onClick={() => handleAddUser()}
+              onClick={() => handleAddUser(isChecked)}
               className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-700 text-base font-medium text-white hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
             >
               Invite

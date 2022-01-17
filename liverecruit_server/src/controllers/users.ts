@@ -6,10 +6,9 @@ import asynchandler from "../middleware/async";
 //@route GET /api/v1/auth/users
 
 export const getUsers = asynchandler(async (req: any, res: any, next: any) => {
-  console.log("HEY");
   User.find({}, function (err: any, users: any) {
     console.log(users);
-    res.status(200).json(users);
+    res.status(200).json({ success: true, data: users });
   });
 });
 

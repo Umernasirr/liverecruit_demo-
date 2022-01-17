@@ -1,20 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
+  const { login, isAuthenticated } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    navigate("recruiter");
-
-    // API CALL
-    // email and password
+    login(email, password);
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/recruiter");
+    }
+  }, [isAuthenticated]);
 
   return (
     <div className="h-screen w-screen bg-red-100 flex justify-center items-center ">

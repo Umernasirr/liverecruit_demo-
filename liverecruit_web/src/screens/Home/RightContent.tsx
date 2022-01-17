@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusIcon } from "@heroicons/react/solid";
 import Modal from "../../components/Modal";
-import { addUser } from "../../services/UserService";
+import useUserManagement from "../../hooks/useUserManagement";
 
 const RightContent = () => {
-  const users = [1, 2, 3, 4, 5];
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState("");
+
+  const { inviteUser, users } = useUserManagement();
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleAddUser = () => {
-    addUser(email);
+  const handleAddUser = (isAdmin: boolean) => {
+    inviteUser(email, isAdmin);
   };
+
+  console.log(users);
 
   return (
     <div className="p-12 w-full">
@@ -36,18 +39,16 @@ const RightContent = () => {
             <th>Name</th>
             <th>Email</th>
             <th>User</th>
-            <th>type</th>
-            <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-            <td>Malcolm Lockyer</td>
-            <td>1961</td>
-            <td>1961</td>
-            <td>1961</td>
-          </tr>
+          {users.map((user: any, idx: number) => (
+            <tr key={idx.toString()}>
+              <td>{user.email}</td>
+              <td>{user.role}</td>
+              <td>{new Date(user.createdAt).toDateString()}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
 
