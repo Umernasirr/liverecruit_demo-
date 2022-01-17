@@ -26,7 +26,9 @@ app.use(mongoSanitize());
 //Set security headers
 app.use(helmet());
 
+// Body Parser json
 app.use(bodyParser.json());
+
 app.use(
   bodyParser.urlencoded({
     extended: true,
